@@ -61,11 +61,11 @@ public class MainActivity extends AppCompatActivity {
                 adapter = new GrillaAdapter(myPhotos, MainActivity.this, new OnItemClickListener() {
                     @Override
                     public void onItemClick(Photo photo) {
-//                        Intent intent = new Intent(MainActivity.this,DetailActivity.class);
-//                        Bundle bundle = new Bundle();
-//                        bundle.putParcelable(PHOTO,photo);
-//                        intent.putExtras(bundle);
-//                        startActivity(intent);
+                        Intent intent = new Intent(MainActivity.this,DetailActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable(PHOTO,photo);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
                     }
                 });
                 recycler.setAdapter(adapter);
