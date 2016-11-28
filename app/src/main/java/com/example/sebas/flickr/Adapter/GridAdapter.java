@@ -23,18 +23,18 @@ import butterknife.ButterKnife;
 
 
 
-public class GrillaAdapter extends RecyclerView.Adapter<GrillaAdapter.GrillaViewHolder> {
+public class GridAdapter extends RecyclerView.Adapter<GridAdapter.GrillaViewHolder> {
 
     private List<Photo> photos;
     private Context context;
     private OnItemClickListener listener;
 
-    public GrillaAdapter(Context context) {
+    public GridAdapter(Context context) {
         this.context = context;
         this.photos = new ArrayList<>();
     }
 
-    public GrillaAdapter(List<Photo> photos, Context context, OnItemClickListener onItemClickListener) {
+    public GridAdapter(List<Photo> photos, Context context, OnItemClickListener onItemClickListener) {
         this.photos = photos;
         this.context = context;
         this.listener = onItemClickListener;
@@ -43,7 +43,7 @@ public class GrillaAdapter extends RecyclerView.Adapter<GrillaAdapter.GrillaView
 
 
     @Override
-    public GrillaAdapter.GrillaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public GridAdapter.GrillaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         GrillaViewHolder grillaViewHolder = new GrillaViewHolder(LayoutInflater.from(context).inflate(R.layout.item_grilla,parent,false));
         return grillaViewHolder;
     }
@@ -53,8 +53,10 @@ public class GrillaAdapter extends RecyclerView.Adapter<GrillaAdapter.GrillaView
         final Photo photo = photos.get(position);
         String imageUrl = photo.getUrlS();
         ImageLoader.getInstance().displayImage(imageUrl,holder.photo, MyApplication.options);
-        String urlPicProfile = "http://farm" + photo.getIconfarm() + ".staticflickr.com/" + photo.getIconserver() + "/buddyicons/" + photo.getOwner()+ ".jpg";
-        ImageLoader.getInstance().displayImage(urlPicProfile,holder.picprofile,MyApplication.optionsRounded);
+        if (photo.getIconfarm()!=null) {
+            String urlPicProfile = "http://farm" + photo.getIconfarm() + ".staticflickr.com/" + photo.getIconserver() + "/buddyicons/" + photo.getOwner() + ".jpg";
+            ImageLoader.getInstance().displayImage(urlPicProfile, holder.picprofile, MyApplication.optionsRounded);
+        }
         holder.username.setText(photo.getOwnername());
         holder.title.setText(photo.getTitle());
         holder.date.setText(Utils.changeDateformat(photo.getDatetaken()));

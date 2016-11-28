@@ -10,7 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.example.sebas.flickr.Adapter.GrillaAdapter;
+
+import com.example.sebas.flickr.Adapter.GridAdapter;
 import com.example.sebas.flickr.Interfaces.EndlessRecyclerViewScrollListener;
 import com.example.sebas.flickr.Interfaces.OnItemClickListener;
 import com.example.sebas.flickr.Models.MyPhotos;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private FlickrService service;
     private GridLayoutManager gridLayoutManager;
     private EndlessRecyclerViewScrollListener scrollListener;
-    private GrillaAdapter adapter;
+    private GridAdapter adapter;
     public static String PHOTO = "photo";
     public static boolean isGrid = true;
 
@@ -53,12 +54,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void firstFetch() {
-        Call<MyPhotos> call = service.getAllPhotos(FlickrService.METHOD,FlickrService.API_KEY,FlickrService.EXTRAS,FlickrService.PER_PAGE,1,FlickrService.FORMAT,1);
+        Call<MyPhotos> call = service.getAllPhotos(FlickrService.METHOD_RECENT,FlickrService.API_KEY,FlickrService.EXTRAS,FlickrService.PER_PAGE,1,FlickrService.FORMAT,1);
         call.enqueue(new Callback<MyPhotos>() {
             @Override
             public void onResponse(Call<MyPhotos> call, Response<MyPhotos> response) {
                 List<Photo> myPhotos = response.body().getPhotos().getPhoto();
-                adapter = new GrillaAdapter(myPhotos, MainActivity.this, new OnItemClickListener() {
+                adapter = new GridAdapter(myPhotos, MainActivity.this, new OnItemClickListener() {
                     @Override
                     public void onItemClick(Photo photo) {
                         Intent intent = new Intent(MainActivity.this,DetailActivity.class);
@@ -106,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 adapter.clear();
-                Call<MyPhotos> call = service.getAllPhotos(FlickrService.METHOD,FlickrService.API_KEY,FlickrService.EXTRAS,FlickrService.PER_PAGE,1,FlickrService.FORMAT,1);
+                Call<MyPhotos> call = service.getAllPhotos(FlickrService.METHOD_RECENT,FlickrService.API_KEY,FlickrService.EXTRAS,FlickrService.PER_PAGE,1,FlickrService.FORMAT,1);
                 call.enqueue(new Callback<MyPhotos>() {
                     @Override
                     public void onResponse(Call<MyPhotos> call, Response<MyPhotos> response) {
@@ -126,12 +127,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void nextFetch(int page, final int startpos, final RecyclerView view) {
-        Call<MyPhotos> call = service.getAllPhotos(FlickrService.METHOD,FlickrService.API_KEY,FlickrService.EXTRAS,FlickrService.PER_PAGE,page,FlickrService.FORMAT,1);
+        Call<MyPhotos> call = service.getAllPhotos(FlickrService.METHOD_RECENT,FlickrService.API_KEY,FlickrService.EXTRAS,FlickrService.PER_PAGE,page,FlickrService.FORMAT,1);
         call.enqueue(new Callback<MyPhotos>() {
             @Override
             public void onResponse(Call<MyPhotos> call, Response<MyPhotos> response) {
                 List<Photo> morephotos = response.body().getPhotos().getPhoto();
-                adapter = (GrillaAdapter) view.getAdapter();
+                adapter = (GridAdapter) view.getAdapter();
                 adapter.getPhotos().addAll(morephotos);
                 adapter.notifyItemRangeInserted(startpos,FlickrService.PER_PAGE);
             }
@@ -163,8 +164,8 @@ public class MainActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
         }
         if (item.getItemId() == R.id.search){
-//            Intent intent = new Intent(this,SearchActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(this,SearchActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
