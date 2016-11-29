@@ -42,7 +42,6 @@ public class HomeFragment extends BaseFragment {
     RecyclerView recycler;
     @BindView(R.id.swipeRefresh)
     SwipeRefreshLayout swipeRefreshLayout;
-    private FlickrService service;
     private GridLayoutManager gridLayoutManager;
     private EndlessRecyclerViewScrollListener scrollListener;
     private GridAdapter adapter;
