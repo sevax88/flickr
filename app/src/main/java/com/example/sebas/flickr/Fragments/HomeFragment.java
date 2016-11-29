@@ -146,7 +146,8 @@ public class HomeFragment extends BaseFragment {
         return gridLayoutManager;
     }
 
-    public GridAdapter getAdapter() {
+    @Override
+    public GridAdapter getGridAdapter() {
         return adapter;
     }
 }

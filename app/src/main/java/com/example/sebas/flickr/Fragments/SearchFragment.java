@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 
 import com.example.sebas.flickr.Activities.DetailActivity;
 import com.example.sebas.flickr.Activities.MainActivity;
-import com.example.sebas.flickr.Activities.SearchActivity;
 import com.example.sebas.flickr.Adapter.GridAdapter;
 import com.example.sebas.flickr.Interfaces.OnItemClickListener;
 import com.example.sebas.flickr.Models.MyPhotos;
@@ -35,7 +34,7 @@ import retrofit2.Response;
  * Created by sebba on 29/11/2016.
  */
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends BaseFragment {
 
     @BindView(R.id.searchView)
     SearchView searchView;
@@ -43,6 +42,7 @@ public class SearchFragment extends Fragment {
     RecyclerView recyclerView;
     FlickrService service;
     private GridAdapter adapter;
+    private GridLayoutManager gridLayoutManager;
 
     @Nullable
     @Override
@@ -68,7 +68,8 @@ public class SearchFragment extends Fragment {
                     @Override
                     public void onResponse(Call<MyPhotos> call, Response<MyPhotos> response) {
                         List<Photo> myPhotos = response.body().getPhotos().getPhoto();
-                        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
+                        gridLayoutManager = new GridLayoutManager(getActivity(),3);
+                        recyclerView.setLayoutManager(gridLayoutManager);
                         adapter = new GridAdapter(myPhotos,getActivity(), new OnItemClickListener() {
                             @Override
                             public void onItemClick(Photo photo) {
@@ -97,4 +98,13 @@ public class SearchFragment extends Fragment {
         });
     }
 
+    @Override
+    public GridAdapter getGridAdapter() {
+        return adapter;
+    }
+
+    @Override
+    public GridLayoutManager getGridLayoutManager() {
+        return gridLayoutManager;
+    }
 }

@@ -2,6 +2,7 @@ package com.example.sebas.flickr.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.example.sebas.flickr.Adapter.GridAdapter;
+import com.example.sebas.flickr.Fragments.BaseFragment;
 import com.example.sebas.flickr.Fragments.HomeFragment;
 import com.example.sebas.flickr.Fragments.SearchFragment;
 import com.example.sebas.flickr.Interfaces.EndlessRecyclerViewScrollListener;
@@ -69,9 +71,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.estiloLista){
             if (isGrid){
-                HomeFragment homeFragment = ((HomeFragment)getSupportFragmentManager().findFragmentByTag(HomeFragment.class.getName()));
-                gridLayoutManager = homeFragment.getGridLayoutManager();
-                adapter = homeFragment.getAdapter();
+                BaseFragment baseFragment = ((BaseFragment)getSupportFragmentManager().findFragmentById(R.id.frameContainer));
+                gridLayoutManager = baseFragment.getGridLayoutManager();
+                adapter = baseFragment.getGridAdapter();
                 isGrid = false;
                 gridLayoutManager.setSpanCount(1);
                 item.setIcon(getResources().getDrawable(android.R.drawable.ic_dialog_dialer));
@@ -83,10 +85,33 @@ public class MainActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
         }
         if (item.getItemId() == R.id.search){
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameContainer,new SearchFragment(),SearchFragment.class.getName());
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            if (fm.findFragmentByTag(HomeFragment.class.getName()).isVisible()){
+                //a HomeFragment is visible so I should go to a SearchFragment
+                toolbar.getMenu().findItem(R.id.search).setIcon(R.drawable.home_icon);
+                if (fm.findFragmentByTag(SearchFragment.class.getName()) == null){
+                    ft.add(R.id.frameContainer,new SearchFragment(),SearchFragment.class.getName());
+                }
+                else {
+                    ft.attach(fm.findFragmentByTag(SearchFragment.class.getName()));
+                }
+                ft.detach(fm.findFragmentByTag(HomeFragment.class.getName()));
+                ft.commit();
+            }
+            else {
+                //a SearchFragment is visible so I should go to a HomeFragment
+                toolbar.getMenu().findItem(R.id.search).setIcon(getResources().getDrawable(android.R.drawable.ic_menu_search));
+                if (fm.findFragmentByTag(HomeFragment.class.getName()) == null){
+                    ft.add(R.id.frameContainer,new HomeFragment(),HomeFragment.class.getName());
+                }
+                else {
+                    ft.attach(fm.findFragmentByTag(HomeFragment.class.getName()));
+                }
+                ft.detach(fm.findFragmentByTag(SearchFragment.class.getName()));
+                ft.commit();
+            }
         }
-
         return super.onOptionsItemSelected(item);
     }
-
 }
