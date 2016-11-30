@@ -3,6 +3,7 @@ package com.example.sebas.flickr.Activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,12 +40,22 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        initViewsAndListeners();
         Bundle bundle = getIntent().getExtras();
         photo = bundle.getParcelable(MainActivity.PHOTO);
         loadUi();
+    }
+
+    private void initViewsAndListeners() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DetailActivity.this.onBackPressed();
+            }
+        });
     }
 
     private void loadUi() {
