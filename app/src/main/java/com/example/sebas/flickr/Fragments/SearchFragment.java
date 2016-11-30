@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.example.sebas.flickr.Activities.DetailActivity;
 import com.example.sebas.flickr.Activities.MainActivity;
@@ -38,6 +39,8 @@ import retrofit2.Response;
 
 public class SearchFragment extends BaseFragment {
 
+    @BindView(R.id.progressbar)
+    ProgressBar progressBar;
     @BindView(R.id.searchView)
     SearchView searchView;
     @BindView(R.id.recyclerview)
@@ -99,10 +102,12 @@ public class SearchFragment extends BaseFragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                progressBar.setVisibility(View.VISIBLE);
                 Call<MyPhotos> call= service.search(FlickrService.METHOD_SEARCH,FlickrService.API_KEY,query,FlickrService.EXTRAS,FlickrService.PER_PAGE,1,FlickrService.FORMAT,1);
                 call.enqueue(new Callback<MyPhotos>() {
                     @Override
                     public void onResponse(Call<MyPhotos> call, Response<MyPhotos> response) {
+                        progressBar.setVisibility(View.GONE);
                         List<Photo> myPhotos = response.body().getPhotos().getPhoto();
                         adapter = new GridAdapter(myPhotos,getActivity(), new OnItemClickListener() {
                             @Override

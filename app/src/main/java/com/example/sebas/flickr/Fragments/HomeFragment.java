@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.example.sebas.flickr.Activities.DetailActivity;
 import com.example.sebas.flickr.Activities.MainActivity;
@@ -38,7 +39,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomeFragment extends BaseFragment {
 
-
+    @BindView(R.id.progressbar)
+    ProgressBar progressBar;
     @BindView(R.id.recyclerview)
     RecyclerView recycler;
     @BindView(R.id.swipeRefresh)
@@ -69,6 +71,7 @@ public class HomeFragment extends BaseFragment {
         call.enqueue(new Callback<MyPhotos>() {
             @Override
             public void onResponse(Call<MyPhotos> call, Response<MyPhotos> response) {
+                progressBar.setVisibility(View.GONE);
                 List<Photo> myPhotos = response.body().getPhotos().getPhoto();
                 adapter = new GridAdapter(myPhotos,getActivity(), new OnItemClickListener() {
                     @Override
