@@ -2,6 +2,7 @@ package com.example.sebas.flickr.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +15,8 @@ import butterknife.ButterKnife;
 
 public class DetailActivity extends AppCompatActivity {
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.imagePhoto)
     ImageView imagePhoto;
     @BindView(R.id.profilePic)
@@ -36,6 +39,9 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Bundle bundle = getIntent().getExtras();
         photo = bundle.getParcelable(MainActivity.PHOTO);
         loadUi();
@@ -49,14 +55,19 @@ public class DetailActivity extends AppCompatActivity {
         username.setText(photo.getOwnername());
         place.setText(photo.getTitle());
         date.setText(Utils.changeDateformat(photo.getDatetaken()));
-        if (photo.getDescription().getContent()!="") {
+        if (!photo.getDescription().getContent().equals("")) {
             photoDescription.setText(photo.getDescription().getContent());
         }
-        else {
+        else if(!photo.getMachineTags().equals("")) {
             photoDescription.setText(photo.getMachineTags());
+        }else {
+           photoDescription.setHint("Empty description");
+//           photoDescription.setHintTextColor(getResources().getColor(android.R.color.darker_gray));
         }
         if (photo.getLatitude()!=null && photo.getLongitude()!=null) {
 //            botomPlace.setText(getCity());
+        }else {
+            botomPlace.setHint("The user doesn´t provide any location");
         }
     }
 
