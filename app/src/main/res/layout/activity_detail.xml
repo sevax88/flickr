@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
+    <include layout="@layout/more_detail" android:id="@+id/moredetailLayout" android:visibility="gone"></include>
 
     <include layout="@layout/my_toolbar"></include>
 
