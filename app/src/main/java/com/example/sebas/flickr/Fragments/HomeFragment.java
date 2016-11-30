@@ -78,6 +78,7 @@ public class HomeFragment extends BaseFragment {
                         bundle.putParcelable(PHOTO,photo);
                         intent.putExtras(bundle);
                         startActivity(intent);
+                        getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
                 });
                 recycler.setAdapter(adapter);

@@ -112,6 +112,7 @@ public class SearchFragment extends BaseFragment {
                                 bundle.putParcelable(MainActivity.PHOTO,photo);
                                 intent.putExtras(bundle);
                                 startActivity(intent);
+                                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                             }
                         });
                         recyclerView.setAdapter(adapter);

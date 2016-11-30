@@ -109,4 +109,10 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
+
+    }
 }
