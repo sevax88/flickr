@@ -1,8 +1,11 @@
 package com.example.sebas.flickr.Fragments;
 
+import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.util.Log;
 
+import com.example.sebas.flickr.Activities.MainActivity;
 import com.example.sebas.flickr.Adapter.GridAdapter;
 
 /**
@@ -28,5 +31,11 @@ public class BaseFragment extends Fragment {
 
     public void setGridAdapter(GridAdapter gridAdapter) {
         this.gridAdapter = gridAdapter;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        ((MainActivity)activity).adviceIsGrid();
     }
 }

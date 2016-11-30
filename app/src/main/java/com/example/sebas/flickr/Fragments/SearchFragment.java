@@ -65,6 +65,7 @@ public class SearchFragment extends BaseFragment {
     }
 
     private void initListeners() {
+        ((MainActivity)getActivity()).adviceIsGrid();
         gridLayoutManager = new GridLayoutManager(getActivity(),3);
         recyclerView.setLayoutManager(gridLayoutManager);
         scrollListener = new EndlessRecyclerViewScrollListener(gridLayoutManager) {
@@ -157,4 +158,5 @@ public class SearchFragment extends BaseFragment {
     public GridLayoutManager getGridLayoutManager() {
         return gridLayoutManager;
     }
+
 }

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.sebas.flickr.Activities.DetailActivity;
+import com.example.sebas.flickr.Activities.MainActivity;
 import com.example.sebas.flickr.Adapter.GridAdapter;
 import com.example.sebas.flickr.Interfaces.EndlessRecyclerViewScrollListener;
 import com.example.sebas.flickr.Interfaces.OnItemClickListener;
@@ -91,6 +92,7 @@ public class HomeFragment extends BaseFragment {
 
 
     private void initViewsAndListeners() {
+        ((MainActivity)getActivity()).adviceIsGrid();
         gridLayoutManager = new GridLayoutManager(getActivity(),3);
         recycler.setLayoutManager(gridLayoutManager);
         scrollListener = new EndlessRecyclerViewScrollListener(gridLayoutManager) {

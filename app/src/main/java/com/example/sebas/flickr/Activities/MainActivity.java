@@ -2,6 +2,7 @@ package com.example.sebas.flickr.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.estiloLista){
             if (isGrid){
-                BaseFragment baseFragment = ((BaseFragment)getSupportFragmentManager().findFragmentById(R.id.frameContainer));
+                BaseFragment baseFragment = getvisibleFragment();
                 gridLayoutManager = baseFragment.getGridLayoutManager();
                 adapter = baseFragment.getGridAdapter();
                 isGrid = false;
@@ -94,7 +95,8 @@ public class MainActivity extends AppCompatActivity {
                     ft.add(R.id.frameContainer,new SearchFragment(),SearchFragment.class.getName());
                 }
                 else {
-                    ft.attach(fm.findFragmentByTag(SearchFragment.class.getName()));
+                    SearchFragment searchFragment = (SearchFragment) fm.findFragmentByTag(SearchFragment.class.getName());
+                    ft.attach(searchFragment);
                 }
                 ft.detach(fm.findFragmentByTag(HomeFragment.class.getName()));
                 ft.commit();
@@ -106,12 +108,34 @@ public class MainActivity extends AppCompatActivity {
                     ft.add(R.id.frameContainer,new HomeFragment(),HomeFragment.class.getName());
                 }
                 else {
-                    ft.attach(fm.findFragmentByTag(HomeFragment.class.getName()));
+                    HomeFragment homeFragment = (HomeFragment) fm.findFragmentByTag(HomeFragment.class.getName());
+                    ft.attach(homeFragment);
                 }
                 ft.detach(fm.findFragmentByTag(SearchFragment.class.getName()));
                 ft.commit();
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private BaseFragment getvisibleFragment() {
+        FragmentManager fragmentManager =getSupportFragmentManager();
+        List<Fragment> fragments = fragmentManager.getFragments();
+        if(fragments != null){
+            for(Fragment fragment : fragments){
+                if(fragment != null && fragment.isVisible())
+                    return (BaseFragment) fragment;
+            }
+        }
+        return null;
+    }
+
+    public void adviceIsGrid(){
+        isGrid = true;
+        MenuItem item = toolbar.getMenu().findItem(R.id.estiloLista);
+        if (item!=null){
+            item.setIcon(getResources().getDrawable(android.R.drawable.ic_menu_sort_by_size));
+
+        }
     }
 }
