@@ -132,10 +132,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void adviceIsGrid(){
         isGrid = true;
-        MenuItem item = toolbar.getMenu().findItem(R.id.estiloLista);
-        if (item!=null){
-            item.setIcon(getResources().getDrawable(android.R.drawable.ic_menu_sort_by_size));
+        if(toolbar!=null) {
+            MenuItem item = toolbar.getMenu().findItem(R.id.estiloLista);
+            if (item != null) {
+                item.setIcon(getResources().getDrawable(android.R.drawable.ic_menu_sort_by_size));
 
+            }
         }
     }
 }
