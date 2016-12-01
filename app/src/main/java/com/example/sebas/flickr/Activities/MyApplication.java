@@ -49,7 +49,7 @@ public class MyApplication extends Application {
                 .threadPoolSize(2)
                 .build();
 
-        ImageLoader.getInstance().init(config.createDefault(this));
+        ImageLoader.getInstance().init(config);
 
     }
 }
