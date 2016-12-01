@@ -63,12 +63,14 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 moredetailLayout.setVisibility(View.VISIBLE);
+                toolbar.setVisibility(View.GONE);
             }
         });
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 moredetailLayout.setVisibility(View.GONE);
+                toolbar.setVisibility(View.VISIBLE);
             }
         });
         setSupportActionBar(toolbar);

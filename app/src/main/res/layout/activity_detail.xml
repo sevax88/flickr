@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/appbackcolor"
+
     >
     <include layout="@layout/more_detail" android:id="@+id/moredetailLayout" android:visibility="gone"></include>
 
@@ -13,11 +15,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
+        android:layout_margin="10dp"
         >
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:orientation="vertical"
             >
 
             <ImageView
@@ -32,8 +35,6 @@
                 android:orientation="horizontal"
                 android:weightSum="6"
                 android:id="@+id/linearsubpadre"
-                android:layout_below="@id/imagePhoto"
-                android:background="@android:color/white"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
                 >
@@ -86,22 +87,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/photoDescription"
-                android:layout_below="@+id/linearsubpadre"
                 android:paddingLeft="3dp"
+                android:layout_above="@+id/linear"
             />
 
             <LinearLayout
-                android:layout_below="@+id/photoDescription"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
+                android:id="@+id/linear"
                 >
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/pinmap"
                     android:scaleType="fitStart"
+                    android:background="@null"
                     />
 
                 <TextView
@@ -112,6 +114,6 @@
                 />
 
             </LinearLayout>
-        </RelativeLayout>
+        </LinearLayout>
     </ScrollView>
 </LinearLayout>
