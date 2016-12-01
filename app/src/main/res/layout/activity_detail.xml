@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/appbackcolor"
 
     >
     <include layout="@layout/more_detail" android:id="@+id/moredetailLayout" android:visibility="gone"></include>
@@ -88,7 +87,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/photoDescription"
                 android:paddingLeft="3dp"
-                android:layout_above="@+id/linear"
             />
 
             <LinearLayout
@@ -97,6 +95,7 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
                 android:id="@+id/linear"
+                android:gravity="bottom"
                 >
                 <ImageView
                     android:layout_width="40dp"

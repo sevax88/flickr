@@ -51,7 +51,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.GrillaViewHold
     @Override
     public void onBindViewHolder(GrillaViewHolder holder, int position) {
         final Photo photo = photos.get(position);
-        String imageUrl = photo.getUrlS();
+        String imageUrl = photo.getUrlM();
         ImageLoader.getInstance().displayImage(imageUrl,holder.photo, MyApplication.options);
         if (photo.getIconfarm()!=null) {
             String urlPicProfile = "http://farm" + photo.getIconfarm() + ".staticflickr.com/" + photo.getIconserver() + "/buddyicons/" + photo.getOwner() + ".jpg";
