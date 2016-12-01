@@ -109,7 +109,6 @@ public class HomeFragment extends BaseFragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                adapter.clear();
                 Call<MyPhotos> call = ApiService.getInstance().getService().getAllPhotos(FlickrService.METHOD_RECENT,FlickrService.API_KEY,FlickrService.EXTRAS,FlickrService.PER_PAGE,1,FlickrService.FORMAT,1);
                 call.enqueue(new Callback<MyPhotos>() {
                     @Override
