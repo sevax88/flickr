@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    >
+    <include layout="@layout/more_detail" android:id="@+id/moredetailLayout" android:visibility="gone"></include>
+
+    <include layout="@layout/my_toolbar"></include>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:layout_margin="10dp"
+        >
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:id="@+id/imagePhoto"
+                android:scaleType="centerCrop"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:orientation="horizontal"
+                android:weightSum="6"
+                android:id="@+id/linearsubpadre"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                >
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="0.75"
+                    android:layout_height="match_parent"
+                    android:id="@+id/profilePic"
+                    android:scaleType="centerCrop"
+                    android:layout_margin="4dp"
+                    />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="4.25"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="2">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:id="@+id/username"
+                        android:textStyle="bold"
+                        android:gravity="start|bottom"
+                        android:maxLines="1"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:id="@+id/place"
+                        android:padding="1dp"
+                        android:gravity="start|top"
+                        android:maxLines="1"
+                        />
+                </LinearLayout>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:gravity="top"
+                    android:singleLine="true"
+                    android:id="@+id/date"
+                    android:padding="1dp"
+
+                    />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/photoDescription"
+                android:paddingLeft="3dp"
+            />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:id="@+id/linear"
+                android:gravity="bottom"
+                >
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/pinmap"
+                    android:scaleType="fitStart"
+                    android:background="@null"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/botomPlace"
+
+                />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
